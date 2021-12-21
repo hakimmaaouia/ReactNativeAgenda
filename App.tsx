@@ -9,14 +9,17 @@
  */
 
 import {NavigationContainer} from '@react-navigation/native';
-import React from 'react';
-import {Text, View} from 'react-native';
+import React,{useState} from 'react';
 import RootNavigation from './src/navigation/index'
-
+import {TasksList} from './src/context/index'
 const App = () => {
+  // eslint-disable-next-line @typescript-eslint/no-shadow
+  const [taskList, setTaskList] = useState({});
   return (
     <NavigationContainer>
+      <TasksList.Provider value={{taskList,setTaskList}}>
       <RootNavigation />
+      </TasksList.Provider>
     </NavigationContainer>
   );
 };
