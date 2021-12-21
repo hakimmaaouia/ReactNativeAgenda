@@ -6,7 +6,7 @@ const AddTaskBtn = ({onPress}:any) => {
   return (
     <View style={styles.container}>
         <Pressable  onPress={onPress}>
-      <Text>AddTaskBtn</Text>
+      <Text style={styles.text}>+</Text>
        </Pressable>
     </View>
   );
@@ -18,12 +18,19 @@ const styles = StyleSheet.create({
     container: {
       height: 50,
       width :50,
-      backgroundColor:'red',
+      backgroundColor:"#049a5b",
       borderRadius: 50,
       overflow:'hidden',
       display:'flex',
       justifyContent:'center',
       alignContent:'center',
+      alignItems:"center"
 
     },
+    text:{
+      fontWeigh:"900",
+      color:"#ffffff",
+      fontSize:20
+    }
+
   });

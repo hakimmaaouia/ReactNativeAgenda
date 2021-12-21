@@ -1,32 +1,42 @@
 /* eslint-disable prettier/prettier */
-import React from 'react';
+import React, { useContext } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import AddTaskBtn from '../../components/addTaskBtn/index'
+import { Agenda } from 'react-native-calendars';
+import { TasksList } from '../../context/index'
+import Routes  from '../../navigation/routes';
 const HomeScreen = () => {
   const navigation: any = useNavigation();
+  const { taskList, setTaskList } = useContext(TasksList);
 
-  return (
-    <View style={styles.container}>
+  const renderItem = (item: any) => {
+    return (
       <TouchableOpacity
         onPress={() => {
-          navigation.navigate('CreateTask');
+          navigation.navigate(Routes.DETAIL_TASK);
         }}
-        style={{
-          backgroundColor: '#fff',
-          padding: 30,
-          margin: 30,
-          borderRadius: 20,
-        }}
+       style={styles.taskItemContainer}
       >
-        <Text>HomeScreen</Text>
+        <View
+         style={styles.taskitemView}
+        >
+          <Text>{item.name}</Text>
+          <Text>{item.time}</Text>
+        </View>
       </TouchableOpacity>
-      <Text>HomeScreen</Text>
-
-
+    );
+  };
+  return (
+    <View style={styles.container}>
+      <Agenda 
+      items={taskList}
+      renderItem={renderItem}
+      
+      />
       <View style={styles.addTaskBtn} >
         <AddTaskBtn  onPress={() => {
-          navigation.navigate('CreateTask');
+          navigation.navigate(Routes.CREATE_TASK);
         }}/>
       </View>
     </View>
@@ -40,10 +50,24 @@ const styles = StyleSheet.create({
   },
   addTaskBtn: {
     position: "absolute",
-    right: 0,
-    bottom: 0,
+    right: 10,
+    bottom: 10,
+  },
+  taskItemContainer:{
+    flex:1,
+    backgroundColor: '#fff',
+          margin:20,
+          borderRadius: 20,
+  },
+  taskitemView:{
+    padding:10,
+    flex:1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    borderLeftColor:"#049a5b",
+    borderLeftWidth:6
   }
-
 });
 
 export default HomeScreen;
